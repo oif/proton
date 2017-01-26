@@ -5,4 +5,5 @@ DNS over HTTPS (powered by Google DNS)
 
 # TODO
 
-* IPv6 support
+* Cache
+* More query types support

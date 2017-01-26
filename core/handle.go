@@ -20,7 +20,6 @@ func protonHandle(w dns.ResponseWriter, r *dns.Msg) {
 	if ip, ok := w.RemoteAddr().(*net.TCPAddr); ok {
 		a = ip.IP
 	}
-
 	fmt.Printf("%s %s %s\n", a.String(), dns.TypeToString[r.Question[0].Qtype], r.Question[0].Name)
 
 	Resolver(m, r, a.String()) // 开始解析
