@@ -1,6 +1,7 @@
 package gdns
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -18,8 +19,12 @@ func QueryAPI(url_addr string, params map[string]interface{}) ([]byte, error) {
 		Transport: &http.Transport{
 			Proxy: http.ProxyURL(proxy),
 		},
+		//Timeout: time.Second,
 	}
 	resp, err := client.Do(request)
+	if err != nil {
+		return nil, errors.New("timeout")
+	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 	return body, err

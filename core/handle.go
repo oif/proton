@@ -12,8 +12,10 @@ func protonHandle(w dns.ResponseWriter, r *dns.Msg) {
 		a net.IP
 	)
 	m := new(dns.Msg)
+	m.SetEdns0(4096, true)
 	m.SetReply(r)
 	m.Compress = true
+
 	if ip, ok := w.RemoteAddr().(*net.UDPAddr); ok {
 		a = ip.IP
 	}
@@ -23,20 +25,34 @@ func protonHandle(w dns.ResponseWriter, r *dns.Msg) {
 	fmt.Printf("%s %s %s\n", a.String(), dns.TypeToString[r.Question[0].Qtype], r.Question[0].Name)
 
 	Resolver(m, r, a.String()) // 开始解析
-
 	w.WriteMsg(m)
 }
 
 func Resolver(m *dns.Msg, r *dns.Msg, clientIP string) {
+	if r.Question[0].Qtype == dns.TypeANY { // 拒绝
+		return
+	}
+
 	response, err := gdns.NewGoogleDNSRequest().ResolveName(r.Question[0].Name).ResolveType(r.Question[0].Qtype).ClientSubnet(clientIP).Query()
 	if err != nil {
 		fmt.Printf("google dns request error %v\n", err.Error())
 		return
 	}
+
 	// Success
-	if ok, _ := response.Success(); ok {
+	if ok, comment := response.Success(); ok {
 		for _, ans := range response.Answer {
 			m.Answer = append(m.Answer, ans.GetAnswer())
 		}
+	} else {
+		m.Answer = append(m.Answer, &dns.TXT{
+			Hdr: dns.RR_Header{
+				Name:   clientIP,
+				Rrtype: dns.TypeTXT,
+				Class:  dns.ClassINET,
+				Ttl:    0,
+			},
+			Txt: []string{comment},
+		})
 	}
 }

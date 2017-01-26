@@ -36,6 +36,7 @@ func BytesToGoogleDNSResponse(resp []byte) (*GoogleDNSResponse, error) {
 	response := GoogleDNSResponse{}
 	var err error
 	err = json.Unmarshal(resp, &response)
+
 	return &response, err
 }
 
@@ -63,8 +64,22 @@ func (a *Answer) GetAnswer() dns.RR {
 			Hdr:    a.GetRRHeader(),
 			Target: a.Data,
 		}
+	case dns.TypeNS:
+		return &dns.NS{
+			Hdr: a.GetRRHeader(),
+			Ns:  a.Data,
+		}
+	default:
+		return &dns.TXT{
+			Hdr: dns.RR_Header{
+				Name:   a.Name,
+				Rrtype: dns.TypeTXT,
+				Class:  dns.ClassINET,
+				Ttl:    0,
+			},
+			Txt: []string{"do not support TYPE: " + dns.TypeToString[a.Type] + " currently"},
+		}
 	}
-	return nil
 }
 
 func (a *Answer) GetRRHeader() dns.RR_Header {

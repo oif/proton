@@ -56,5 +56,6 @@ func (g *GoogleDNSRequest) Query() (*GoogleDNSResponse, error) {
 	if err == nil {
 		response, err = BytesToGoogleDNSResponse(resp)
 	}
+
 	return response, err
 }
