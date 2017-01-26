@@ -1,4 +1,4 @@
-package google_dns
+package gdns
 
 const GOOGLE_DNS_API = "https://dns.google.com/"
 

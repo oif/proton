@@ -1,4 +1,4 @@
-package google_dns
+package gdns
 
 import (
 	"encoding/json"

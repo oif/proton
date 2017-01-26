@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/miekg/dns"
 	"net"
-	gd "proton/google_dns"
+	"proton/gdns"
 )
 
 func protonHandle(w dns.ResponseWriter, r *dns.Msg) {
@@ -28,7 +28,7 @@ func protonHandle(w dns.ResponseWriter, r *dns.Msg) {
 }
 
 func Resolver(m *dns.Msg, r *dns.Msg, clientIP string) {
-	response, err := gd.NewGoogleDNSRequest().ResolveName(r.Question[0].Name).ResolveType(r.Question[0].Qtype).ClientSubnet(clientIP).Query()
+	response, err := gdns.NewGoogleDNSRequest().ResolveName(r.Question[0].Name).ResolveType(r.Question[0].Qtype).ClientSubnet(clientIP).Query()
 	if err != nil {
 		fmt.Printf("google dns request error %v\n", err.Error())
 		return
