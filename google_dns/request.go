@@ -1,7 +1,6 @@
 package google_dns
 
 import (
-	"fmt"
 	"proton/util"
 )
 
@@ -55,7 +54,6 @@ func (g *GoogleDNSRequest) Query() (*GoogleDNSResponse, error) {
 		DISABLE_DNSSEC: g.CD,
 		EDNS:           g.EDNSClientSubnet,
 	}
-	fmt.Println("query google dns api")
 	resp, err := util.QueryAPI(GOOGLE_DNS_API+"resolve", params)
 	var response *GoogleDNSResponse
 	if err == nil {
