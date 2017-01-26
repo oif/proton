@@ -19,7 +19,7 @@ func Setup() {
 }
 
 func serve(prot string) {
-	server := &dns.Server{Addr: ":53", Net: prot, TsigSecret: nil}
+	server := &dns.Server{Addr: ":8053", Net: prot, TsigSecret: nil}
 	if err := server.ListenAndServe(); err != nil {
 		fmt.Printf("Failed to setup the "+prot+" server: %s\n", err.Error())
 	}
