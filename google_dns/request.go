@@ -1,9 +1,5 @@
 package google_dns
 
-import (
-	"proton/util"
-)
-
 const GOOGLE_DNS_API = "https://dns.google.com/"
 
 const (
@@ -54,7 +50,8 @@ func (g *GoogleDNSRequest) Query() (*GoogleDNSResponse, error) {
 		DISABLE_DNSSEC: g.CD,
 		EDNS:           g.EDNSClientSubnet,
 	}
-	resp, err := util.QueryAPI(GOOGLE_DNS_API+"resolve", params)
+	resp, err := QueryAPI(GOOGLE_DNS_API+"resolve", params)
+
 	var response *GoogleDNSResponse
 	if err == nil {
 		response, err = BytesToGoogleDNSResponse(resp)

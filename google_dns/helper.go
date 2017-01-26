@@ -1,4 +1,4 @@
-package util
+package google_dns
 
 import (
 	"fmt"
@@ -25,25 +25,6 @@ func QueryAPI(url_addr string, params map[string]interface{}) ([]byte, error) {
 	return body, err
 }
 
-/*
-func QueryAPI(url string, params map[string]interface{}) ([]byte, error) {
-
-	resp, err := http.Get(url + "?" + paramsFormator(params))
-	if resp != nil {
-		defer resp.Body.Close()
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	return []byte(body), nil
-}
-*/
 // 构造参数 (URLEncode)
 func paramsFormator(params map[string]interface{}) string {
 	if params == nil || len(params) == 0 {
