@@ -11,5 +11,4 @@ DNS over HTTPS (powered by Google DNS)
 # TODO
 
 * Statistics
-* More query types support
 * Optimize
