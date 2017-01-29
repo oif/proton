@@ -12,21 +12,33 @@ type ProtonConfig struct {
 	Cache CacheConfig `toml:"cache"` // 缓存配置
 }
 
+// BasicConfig with addr and port
+type BasicConfig struct {
+	Addr string // address
+	Port uint   // port
+}
+
 // TCPConfig for TCP service config
-type TCPConfig struct{}
+type TCPConfig struct {
+	BasicConfig
+}
 
 // UDPConfig for UDP service config
-type UDPConfig struct{}
+type UDPConfig struct {
+	BasicConfig
+}
 
-// ProxyConfig a import config to make sure the connection between service and Google DNS
-type ProxyConfig struct{}
+// ProxyConfig a important config to make sure the connection between service and Google DNS
+type ProxyConfig struct {
+	BasicConfig
+}
 
 // CacheConfig for resolve result cache
 type CacheConfig struct{}
 
 // GetProtonConfig 解析 toml 配置
-func GetProtonConfig() (ProtonConfig, error) {
+func GetProtonConfig(configPath string) (ProtonConfig, error) {
 	var c ProtonConfig
-	_, err := toml.DecodeFile("proton.toml", &c)
+	_, err := toml.DecodeFile(configPath, &c)
 	return c, err
 }
