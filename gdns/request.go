@@ -24,26 +24,31 @@ func NewGoogleDNSRequest() *GoogleDNSRequest {
 	}
 }
 
+// 设置解析域名
 func (g *GoogleDNSRequest) ResolveName(domain string) *GoogleDNSRequest {
 	g.Name = domain
 	return g
 }
 
+// 设置解析类型
 func (g *GoogleDNSRequest) ResolveType(qtype uint16) *GoogleDNSRequest {
 	g.Type = qtype
 	return g
 }
 
+// 设置子网
 func (g *GoogleDNSRequest) ClientSubnet(subnet string) *GoogleDNSRequest {
 	g.EDNSClientSubnet = subnet
 	return g
 }
 
+// DNSSEC 开关
 func (g *GoogleDNSRequest) DisableDNSSEC(cd bool) *GoogleDNSRequest {
 	g.CD = cd
 	return g
 }
 
+// 请求 Google DNS
 func (g *GoogleDNSRequest) Query() (*GoogleDNSResponse, error) {
 	params := map[string]interface{}{
 		DOMAIN_NAME:    g.Name,

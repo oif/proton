@@ -19,6 +19,7 @@ type ProxyConfig struct{}
 
 type CacheConfig struct{}
 
+// 解析 toml 配置
 func GetProtonConfig() (ProtonConfig, error) {
 	var c ProtonConfig
 	_, err := toml.DecodeFile("proton.toml", &c)

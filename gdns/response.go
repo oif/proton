@@ -32,6 +32,7 @@ type Answer struct {
 	Data string `json:"data"` // IP address as text
 }
 
+// API 返回数据构造 Response
 func BytesToGoogleDNSResponse(resp []byte) (*GoogleDNSResponse, error) {
 	response := GoogleDNSResponse{}
 	var err error
@@ -40,6 +41,7 @@ func BytesToGoogleDNSResponse(resp []byte) (*GoogleDNSResponse, error) {
 	return &response, err
 }
 
+// 判断是否成功
 func (g *GoogleDNSResponse) Success() (bool, string) {
 	if g.Status == 0 {
 		return true, ""
@@ -47,6 +49,7 @@ func (g *GoogleDNSResponse) Success() (bool, string) {
 	return false, g.Comment
 }
 
+// 获取 anwser
 func (a *Answer) GetAnswer() dns.RR {
 	switch a.Type {
 	case dns.TypeA:
@@ -82,6 +85,7 @@ func (a *Answer) GetAnswer() dns.RR {
 	}
 }
 
+// 获取 rr header
 func (a *Answer) GetRRHeader() dns.RR_Header {
 	return dns.RR_Header{
 		Name:   a.Name,

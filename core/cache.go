@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// 根据格式生成 key
 func getKey(name, qtype, ip string) string {
 	dot := strings.LastIndex(ip, ".")
 	if dot > 0 { // v4
@@ -20,6 +21,7 @@ func getKey(name, qtype, ip string) string {
 	return ""
 }
 
+// 增加 DNS 缓存
 func addDNSCache(m *dns.Msg, ip string) error {
 	if len(m.Answer) > 0 {
 		packed, err := m.Pack()
@@ -35,6 +37,7 @@ func addDNSCache(m *dns.Msg, ip string) error {
 	return nil
 }
 
+// 获取 DNS 缓存
 func getDNSCache(q []dns.Question, ip string) (*dns.Msg, error) {
 	temp := &dns.Msg{}
 	key := getKey(q[0].Name, dns.TypeToString[q[0].Qtype], ip)

@@ -1,5 +1,8 @@
 # Proton
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/oif/proton)](https://goreportcard.com/report/github.com/oif/proton)
+
+
 DNS over HTTPS (powered by Google DNS)
 
 

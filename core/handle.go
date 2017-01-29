@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Proton 服务 handle
 func protonHandle(w dns.ResponseWriter, r *dns.Msg) {
 	start := time.Now().UnixNano()
 	var (
