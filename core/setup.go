@@ -10,10 +10,10 @@ import (
 	"syscall"
 )
 
-// setup 主函数
+// Setup main setup func
 func Setup(c *ProtonConfig) {
 
-	fmt.Print(PROTON_LOGO)
+	fmt.Print(ProtonLOGO)
 
 	setupLog(c)
 	setupStat(c)
@@ -21,7 +21,7 @@ func Setup(c *ProtonConfig) {
 	setupService(c)
 }
 
-// 启动服务
+// setupService DNS service
 func setupService(c *ProtonConfig) {
 	dns.HandleFunc(".", protonHandle)
 	go serve("tcp")
@@ -33,7 +33,7 @@ func setupService(c *ProtonConfig) {
 	log.Infof("Signal %s received, stopping", s)
 }
 
-// 服务监听
+// serve dns service listener
 func serve(prot string) {
 	server := &dns.Server{Addr: ":8053", Net: prot, TsigSecret: nil}
 	if err := server.ListenAndServe(); err != nil {
@@ -42,7 +42,7 @@ func serve(prot string) {
 	}
 }
 
-// 启动日志
+// setupLog to initialize logrus service
 func setupLog(c *ProtonConfig) {
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&log.TextFormatter{})
@@ -53,7 +53,7 @@ func setupLog(c *ProtonConfig) {
 	log.SetLevel(log.DebugLevel)
 }
 
-// 启动缓存
+// setupCache initialize DNS cache service
 func setupCache(c *ProtonConfig) {
 	cacheSize := 10 * 1024 * 1024
 	cache = freecache.NewCache(cacheSize)

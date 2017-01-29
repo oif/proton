@@ -11,12 +11,12 @@ import (
 func getKey(name, qtype, ip string) string {
 	dot := strings.LastIndex(ip, ".")
 	if dot > 0 { // v4
-		return fmt.Sprintf(CACHE_KEY_FORMAT, name, qtype, ip[0:dot])
+		return fmt.Sprintf(CacheKeyFormat, name, qtype, ip[0:dot])
 	}
 
 	colon := strings.LastIndex(ip, ":")
 	if colon > 0 { // v6
-		return fmt.Sprintf(CACHE_KEY_FORMAT, name, qtype, ip[0:colon])
+		return fmt.Sprintf(CacheKeyFormat, name, qtype, ip[0:colon])
 	}
 	return ""
 }

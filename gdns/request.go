@@ -1,15 +1,17 @@
 package gdns
 
-const GOOGLE_DNS_API = "https://dns.google.com/" // Google DNS API
+// GoogleDNSAPI used in query api
+const GoogleDNSAPI = "https://dns.google.com/"
 
-// 请求参数
+// API request params
 const (
-	DOMAIN_NAME    = "name"               // 解析域名
-	RR_TYPE        = "type"               // 解析类型
-	DISABLE_DNSSEC = "cd"                 // 关闭 DNSSEC
-	EDNS           = "edns_client_subnet" // EDNS
+	DomainName    = "name"               // 解析域名
+	RRType        = "type"               // 解析类型
+	DisableDNSSEC = "cd"                 // 关闭 DNSSEC
+	EDNS          = "edns_client_subnet" // EDNS
 )
 
+// GoogleDNSRequest parse request data to struct
 type GoogleDNSRequest struct {
 	Name             string // 解析域名
 	Type             uint16 // 解析类型
@@ -17,6 +19,7 @@ type GoogleDNSRequest struct {
 	EDNSClientSubnet string // EDNS 子网
 }
 
+// NewGoogleDNSRequest will return a GoogleDNSRequest isntance with default value
 func NewGoogleDNSRequest() *GoogleDNSRequest {
 	return &GoogleDNSRequest{
 		Type: 1,
@@ -24,39 +27,39 @@ func NewGoogleDNSRequest() *GoogleDNSRequest {
 	}
 }
 
-// 设置解析域名
+// ResolveName  设置解析域名
 func (g *GoogleDNSRequest) ResolveName(domain string) *GoogleDNSRequest {
 	g.Name = domain
 	return g
 }
 
-// 设置解析类型
+// ResolveType 设置解析类型
 func (g *GoogleDNSRequest) ResolveType(qtype uint16) *GoogleDNSRequest {
 	g.Type = qtype
 	return g
 }
 
-// 设置子网
+// ClientSubnet 设置子网
 func (g *GoogleDNSRequest) ClientSubnet(subnet string) *GoogleDNSRequest {
 	g.EDNSClientSubnet = subnet
 	return g
 }
 
-// DNSSEC 开关
+// DisableDNSSEC DNSSEC 开关
 func (g *GoogleDNSRequest) DisableDNSSEC(cd bool) *GoogleDNSRequest {
 	g.CD = cd
 	return g
 }
 
-// 请求 Google DNS
+// Query 请求 Google DNS
 func (g *GoogleDNSRequest) Query() (*GoogleDNSResponse, error) {
 	params := map[string]interface{}{
-		DOMAIN_NAME:    g.Name,
-		RR_TYPE:        g.Type,
-		DISABLE_DNSSEC: g.CD,
-		EDNS:           g.EDNSClientSubnet,
+		DomainName:    g.Name,
+		RRType:        g.Type,
+		DisableDNSSEC: g.CD,
+		EDNS:          g.EDNSClientSubnet,
 	}
-	resp, err := QueryAPI(GOOGLE_DNS_API+"resolve", params)
+	resp, err := QueryAPI(GoogleDNSAPI+"resolve", params)
 
 	var response *GoogleDNSResponse
 	if err == nil {

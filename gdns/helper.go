@@ -9,9 +9,9 @@ import (
 	"strings"
 )
 
-// 请求 API [GET]
-func QueryAPI(url_addr string, params map[string]interface{}) ([]byte, error) {
-	request, _ := http.NewRequest("GET", url_addr+"?"+paramsFormator(params), nil)
+// QueryAPI 请求 API [GET]
+func QueryAPI(urlAddr string, params map[string]interface{}) ([]byte, error) {
+	request, _ := http.NewRequest("GET", urlAddr+"?"+paramsFormator(params), nil)
 	proxy, err := url.Parse("http://127.0.0.1:6152")
 	if err != nil {
 		return nil, err

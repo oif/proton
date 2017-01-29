@@ -6,7 +6,7 @@ import (
 	"proton/gdns"
 )
 
-// 解析函数
+// Resolver 解析函数
 func Resolver(m *dns.Msg, r *dns.Msg, clientIP string) {
 	if r.Question[0].Qtype == dns.TypeANY { // 拒绝
 		return

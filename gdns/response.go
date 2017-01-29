@@ -6,6 +6,7 @@ import (
 	"net"
 )
 
+// GoogleDNSResponse Google DNS API response struct
 type GoogleDNSResponse struct {
 	Status           int           `json:"Status"`             // 0 success, 2 fail
 	TC               bool          `json:"TC"`                 // Whether the response is truncated
@@ -20,11 +21,13 @@ type GoogleDNSResponse struct {
 	Comment          string        `json:"Comment"`            // comment
 }
 
+// Question part of response
 type Question struct {
 	Name string `json:"name"` // FQDN with trailing dot
 	Type uint32 `json:"type"` // Standard DNS RR type
 }
 
+// Answer part of response
 type Answer struct {
 	Name string `json:"name"` // Always matches name in the Question section
 	Type uint16 `json:"type"` // Standard DNS RR type
@@ -32,7 +35,7 @@ type Answer struct {
 	Data string `json:"data"` // IP address as text
 }
 
-// API 返回数据构造 Response
+// BytesToGoogleDNSResponse parse response to struct
 func BytesToGoogleDNSResponse(resp []byte) (*GoogleDNSResponse, error) {
 	response := GoogleDNSResponse{}
 	var err error
@@ -41,7 +44,7 @@ func BytesToGoogleDNSResponse(resp []byte) (*GoogleDNSResponse, error) {
 	return &response, err
 }
 
-// 判断是否成功
+// Success 判断是否成功
 func (g *GoogleDNSResponse) Success() (bool, string) {
 	if g.Status == 0 {
 		return true, ""
@@ -49,7 +52,7 @@ func (g *GoogleDNSResponse) Success() (bool, string) {
 	return false, g.Comment
 }
 
-// 获取 anwser
+// GetAnswer 获取 anwser
 func (a *Answer) GetAnswer() dns.RR {
 	switch a.Type {
 	case dns.TypeA:
@@ -85,7 +88,7 @@ func (a *Answer) GetAnswer() dns.RR {
 	}
 }
 
-// 获取 rr header
+// GetRRHeader 获取 rr header
 func (a *Answer) GetRRHeader() dns.RR_Header {
 	return dns.RR_Header{
 		Name:   a.Name,
