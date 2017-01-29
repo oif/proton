@@ -5,8 +5,7 @@ go:
   - 1.7
   - master
 
-install:
-  - go get -t -v ./...
+go_import_path: github.com/oif/proton
 
 script:
   - go test -v ./...
