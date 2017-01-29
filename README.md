@@ -1,6 +1,9 @@
 # Proton
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/oif/proton)](https://goreportcard.com/report/github.com/oif/proton)
+[![GitHub stars](https://img.shields.io/github/stars/oif/proton.svg)](https://github.com/oif/proton/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/oif/proton/master/LICENSE)
+
 
 
 DNS over HTTPS (powered by Google DNS)
