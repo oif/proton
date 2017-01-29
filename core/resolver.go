@@ -3,7 +3,7 @@ package core
 import (
 	log "github.com/Sirupsen/logrus"
 	"github.com/miekg/dns"
-	"proton/gdns"
+	"github.com/oif/proton/gdns"
 )
 
 // Resolver 解析函数

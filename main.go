@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/oif/proton/core"
 	"os"
-	"proton/core"
 )
 
 func main() {
