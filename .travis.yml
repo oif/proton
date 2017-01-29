@@ -5,9 +5,5 @@ go:
   - 1.7
   - master
 
-before_install:
-  - mkdir -p $GOPATH/src/github.com/oif
-  - ln -s $TRAVIS_BUILD_DIR $GOPATH/src/github.com/oif/ || true
-
 script:
   - go test -v ./...;
