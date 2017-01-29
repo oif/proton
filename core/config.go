@@ -5,10 +5,10 @@ import (
 )
 
 type ProtonConfig struct {
-	TCP   TCPConfig   `toml:"tcp"`
-	UDP   UDPConfig   `toml:"udp"`
-	Proxy ProxyConfig `toml:"proxy"`
-	Cache CacheConfig `toml:"cache"`
+	TCP   TCPConfig   `toml:"tcp"`   // TCP 配置
+	UDP   UDPConfig   `toml:"udp"`   // UDP 配置
+	Proxy ProxyConfig `toml:"proxy"` // 代理配置
+	Cache CacheConfig `toml:"cache"` // 缓存配置
 }
 
 type TCPConfig struct{}

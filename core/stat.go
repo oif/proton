@@ -5,9 +5,9 @@ import (
 )
 
 type ProtonStat struct {
-	StartAt      time.Time
-	ResolveCount uint64
-	HitCount     uint64
+	StartAt      time.Time // 服务启动时间
+	ResolveCount uint64    // 解析数
+	HitCount     uint64    // hit 数
 }
 
 func NewProtonStat() *ProtonStat {

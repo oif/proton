@@ -7,29 +7,29 @@ import (
 )
 
 type GoogleDNSResponse struct {
-	Status           int           `json:"Status"` // 0 success, 2 fail
-	TC               bool          `json:"TC"`     // Whether the response is truncated
-	RD               bool          `json:"RD"`     // Always true for Google Public DNS
-	RA               bool          `json:"RA"`     // Always true for Google Public DNS
-	AD               bool          `json:"AD"`     // Whether all response data was validated with DNSSEC
-	CD               bool          `json:"CD"`     // Whether the client asked to disable DNSSEC
-	Question         []Question    `json:"Question"`
-	Answer           []Answer      `json:"Answer"`
-	Additional       []interface{} `json:"Additional"`
-	EdnsClientSubnet string        `json:"edns_client_subnet"`
-	Comment          string        `json:"Comment"`
+	Status           int           `json:"Status"`             // 0 success, 2 fail
+	TC               bool          `json:"TC"`                 // Whether the response is truncated
+	RD               bool          `json:"RD"`                 // Always true for Google Public DNS
+	RA               bool          `json:"RA"`                 // Always true for Google Public DNS
+	AD               bool          `json:"AD"`                 // Whether all response data was validated with DNSSEC
+	CD               bool          `json:"CD"`                 // Whether the client asked to disable DNSSEC
+	Question         []Question    `json:"Question"`           // Question
+	Answer           []Answer      `json:"Answer"`             // Answer
+	Additional       []interface{} `json:"Additional"`         // Additional response
+	EdnsClientSubnet string        `json:"edns_client_subnet"` // IP address / scope prefix-length
+	Comment          string        `json:"Comment"`            // comment
 }
 
 type Question struct {
-	Name string `json:"name"`
-	Type uint32 `json:"type"`
+	Name string `json:"name"` // FQDN with trailing dot
+	Type uint32 `json:"type"` // Standard DNS RR type
 }
 
 type Answer struct {
-	Name string `json:"name"`
-	Type uint16 `json:"type"`
-	TTL  uint32 `json:"TTL"`
-	Data string `json:"data"`
+	Name string `json:"name"` // Always matches name in the Question section
+	Type uint16 `json:"type"` // Standard DNS RR type
+	TTL  uint32 `json:"TTL"`  // Record's time-to-live in seconds
+	Data string `json:"data"` // IP address as text
 }
 
 func BytesToGoogleDNSResponse(resp []byte) (*GoogleDNSResponse, error) {

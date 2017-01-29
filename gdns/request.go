@@ -1,19 +1,20 @@
 package gdns
 
-const GOOGLE_DNS_API = "https://dns.google.com/"
+const GOOGLE_DNS_API = "https://dns.google.com/" // Google DNS API
 
+// 请求参数
 const (
-	DOMAIN_NAME    = "name"
-	RR_TYPE        = "type"
-	DISABLE_DNSSEC = "cd"
-	EDNS           = "edns_client_subnet"
+	DOMAIN_NAME    = "name"               // 解析域名
+	RR_TYPE        = "type"               // 解析类型
+	DISABLE_DNSSEC = "cd"                 // 关闭 DNSSEC
+	EDNS           = "edns_client_subnet" // EDNS
 )
 
 type GoogleDNSRequest struct {
-	Name             string
-	Type             uint16
-	CD               bool
-	EDNSClientSubnet string
+	Name             string // 解析域名
+	Type             uint16 // 解析类型
+	CD               bool   // 关闭 DNSSEC，默认关闭
+	EDNSClientSubnet string // EDNS 子网
 }
 
 func NewGoogleDNSRequest() *GoogleDNSRequest {
