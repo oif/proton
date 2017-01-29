@@ -16,3 +16,4 @@ DNS over HTTPS (powered by Google DNS)
 - [ ] 统计数据改进
 - [ ] 缓存 hit 改进
 - [ ] API
+- [ ] 自定义hosts 支持

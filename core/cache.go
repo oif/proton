@@ -3,14 +3,9 @@ package core
 import (
 	"errors"
 	"fmt"
-	"github.com/coocood/freecache"
 	"github.com/miekg/dns"
 	"strings"
 )
-
-var cache *freecache.Cache
-
-const CACHE_KEY_FORMAT = "%s_%s_%s" // name, type, subnet
 
 func getKey(name, qtype, ip string) string {
 	dot := strings.LastIndex(ip, ".")

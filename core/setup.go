@@ -1,6 +1,7 @@
 package core
 
 import (
+	"fmt"
 	log "github.com/Sirupsen/logrus"
 	"github.com/coocood/freecache"
 	"github.com/miekg/dns"
@@ -9,18 +10,13 @@ import (
 	"syscall"
 )
 
-var statistics *ProtonStat
-
 func Setup(c *ProtonConfig) {
+
+	fmt.Print(PROTON_LOGO)
+
 	setupLog(c)
-	log.Infoln("logger ready")
-
 	setupStat(c)
-	log.Infoln("statistics ready")
-
 	setupCache(c)
-	log.Infoln("cache ready")
-
 	setupService(c)
 }
 
