@@ -10,4 +10,4 @@ before_install:
   - ln -s $TRAVIS_BUILD_DIR $GOPATH/src/github.com/oif/ || true
 
 script:
-  - go test -v ./...
+  - go test -v ./...;
