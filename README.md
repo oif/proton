@@ -1,7 +1,6 @@
 # Proton
+[![Build Status](https://travis-ci.org/oif/proton.svg?branch=master)](https://travis-ci.org/oif/proton)
 [![Go Report Card](https://goreportcard.com/badge/github.com/oif/proton)](https://goreportcard.com/report/github.com/oif/proton)
-[![GitHub stars](https://img.shields.io/github/stars/oif/proton.svg)](https://github.com/oif/proton/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/oif/proton/master/LICENSE)
 
 ## 特性
 * 无污染
@@ -17,5 +16,6 @@
 - [x] 服务相关数据统计
 - [ ] 统计数据改进
 - [ ] 缓存 hit 改进
-- [ ] API
-- [ ] 自定义hosts 支持
+- [ ] 简单的 API
+- [ ] 自定义 hosts 支持
+- [ ] 配置化
