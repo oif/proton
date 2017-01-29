@@ -9,15 +9,22 @@ import (
 	"syscall"
 )
 
+var statistics *ProtonStat
+
 func Setup(c *ProtonConfig) {
 	setupLog(c)
 	log.Infoln("logger ready")
+
+	setupStat(c)
+	log.Infoln("statistics ready")
+
 	setupCache(c)
 	log.Infoln("cache ready")
-	setupMain(c)
+
+	setupService(c)
 }
 
-func setupMain(c *ProtonConfig) {
+func setupService(c *ProtonConfig) {
 	dns.HandleFunc(".", protonHandle)
 	go serve("tcp")
 	go serve("udp")
@@ -40,6 +47,8 @@ func setupLog(c *ProtonConfig) {
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&log.TextFormatter{})
 	// Output to stdout instead of the default stderr, could also be a file.
+	//f, _ := os.OpenFile("dns.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
+	//log.SetOutput(f)
 	log.SetOutput(os.Stdout)
 	log.SetLevel(log.DebugLevel)
 }
@@ -47,4 +56,8 @@ func setupLog(c *ProtonConfig) {
 func setupCache(c *ProtonConfig) {
 	cacheSize := 10 * 1024 * 1024
 	cache = freecache.NewCache(cacheSize)
+}
+
+func setupStat(c *ProtonConfig) {
+	statistics = NewProtonStat()
 }

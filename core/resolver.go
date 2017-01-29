@@ -11,9 +11,13 @@ func Resolver(m *dns.Msg, r *dns.Msg, clientIP string) {
 		return
 	}
 
+	statistics.Resolve()
+
 	// 从缓存中获取
 	dnsCache, err := getDNSCache(r.Question, clientIP)
 	if err == nil { // 有缓存
+		statistics.Hit()
+
 		m.Answer = dnsCache.Answer
 		m.Extra = dnsCache.Extra
 		m.Ns = dnsCache.Ns
