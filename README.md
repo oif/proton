@@ -10,11 +10,8 @@ DNS over HTTPS (powered by Google DNS)
 
 # 统计
 
-* 缓存 hit
-* 解析数量
-* 每秒解析数
-* 运行时间
-* 平均请求时间
+* 缓存 hit 改进
+* 服务相关数据统计
 
 # TODO
 
