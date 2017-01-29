@@ -11,8 +11,8 @@ DNS over HTTPS (powered by Google DNS)
 
 # TODO
 
-- [x] 服务相关数据统计
-- [] 统计数据改进
 - [x] Dockerfile
-- [] 缓存 hit 改进
-- [] API
+- [x] 服务相关数据统计
+- [ ] 统计数据改进
+- [ ] 缓存 hit 改进
+- [ ] API
