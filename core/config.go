@@ -35,7 +35,9 @@ type ProxyConfig struct {
 }
 
 // CacheConfig for resolve result cache
-type CacheConfig struct{}
+type CacheConfig struct {
+	Size int // 缓存大小
+}
 
 // GetProtonConfig 解析 toml 配置
 func GetProtonConfig(configPath string) (ProtonConfig, error) {

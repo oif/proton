@@ -59,8 +59,7 @@ func setupLog(c *ProtonConfig) {
 
 // setupCache initialize DNS cache service
 func setupCache(c *ProtonConfig) {
-	cacheSize := 10 * 1024 * 1024
-	cache = freecache.NewCache(cacheSize)
+	cache = freecache.NewCache(c.Cache.Size * 1024) // kb
 }
 
 // setupStat setup statistics service
