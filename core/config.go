@@ -30,6 +30,7 @@ type UDPConfig struct {
 
 // ProxyConfig a important config to make sure the connection between service and Google DNS
 type ProxyConfig struct {
+	Protocol string
 	BasicConfig
 }
 

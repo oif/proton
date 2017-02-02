@@ -3,19 +3,29 @@ package gdns
 import (
 	"errors"
 	"fmt"
+	log "github.com/Sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+// proxyAddr instance of proxy for query API
+var proxyAddr *url.URL
+
+// SetProxyAddr set proxyAddr
+func SetProxyAddr(prot, addr string, port uint) {
+	var err error
+	proxyAddr, err = url.Parse(fmt.Sprintf("%s://%s:%d", prot, addr, port))
+	if err != nil {
+		log.Errorf("set proxy error %v", err.Error())
+	}
+}
+
 // QueryAPI 请求 API [GET]
 func QueryAPI(urlAddr string, params map[string]interface{}) ([]byte, error) {
 	request, _ := http.NewRequest("GET", urlAddr+"?"+paramsFormator(params), nil)
-	proxy, err := url.Parse("http://127.0.0.1:6152")
-	if err != nil {
-		return nil, err
-	}
+	proxy := proxyAddr //url.Parse("http://127.0.0.1:6152")
 	client := &http.Client{
 		Transport: &http.Transport{
 			Proxy: http.ProxyURL(proxy),

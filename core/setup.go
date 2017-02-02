@@ -5,6 +5,7 @@ import (
 	log "github.com/Sirupsen/logrus"
 	"github.com/coocood/freecache"
 	"github.com/miekg/dns"
+	"github.com/oif/proton/gdns"
 	"os"
 	"os/signal"
 	"syscall"
@@ -17,6 +18,7 @@ func Setup(c *ProtonConfig) {
 
 	setupLog(c)
 	setupStat(c)
+	setupProxy(c)
 	setupCache(c)
 	setupService(c)
 }
@@ -24,8 +26,10 @@ func Setup(c *ProtonConfig) {
 // setupService DNS service
 func setupService(c *ProtonConfig) {
 	dns.HandleFunc(".", protonHandle)
-	go serve("tcp")
-	go serve("udp")
+	tcpAddr := fmt.Sprintf("%s:%d", c.TCP.Addr, c.TCP.Port)
+	udpAddr := fmt.Sprintf("%s:%d", c.UDP.Addr, c.UDP.Port)
+	go serve(tcpAddr, "tcp")
+	go serve(udpAddr, "udp")
 	log.Infoln("proton ready")
 	sig := make(chan os.Signal)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
@@ -34,8 +38,8 @@ func setupService(c *ProtonConfig) {
 }
 
 // serve dns service listener
-func serve(prot string) {
-	server := &dns.Server{Addr: ":8053", Net: prot, TsigSecret: nil}
+func serve(addr, prot string) {
+	server := &dns.Server{Addr: addr, Net: prot, TsigSecret: nil}
 	if err := server.ListenAndServe(); err != nil {
 		log.Errorf("Failed to run %s service, %s", prot, err.Error())
 		os.Exit(1)
@@ -59,7 +63,12 @@ func setupCache(c *ProtonConfig) {
 	cache = freecache.NewCache(cacheSize)
 }
 
-// 启动统计
+// setupStat setup statistics service
 func setupStat(c *ProtonConfig) {
 	statistics = NewProtonStat()
+}
+
+// setupProxy set proxy for proton
+func setupProxy(c *ProtonConfig) {
+	gdns.SetProxyAddr(c.Proxy.Protocol, c.Proxy.Addr, c.Proxy.Port)
 }

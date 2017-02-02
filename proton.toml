@@ -1,11 +1,12 @@
 [tcp]
 addr = ""
-port = 8053
+port = 53
 
 [udp]
 addr = ""
-port = 8053
+port = 53
 
 [proxy]
+protocol = "http"
 addr = "127.0.0.1"
 port = 6152
