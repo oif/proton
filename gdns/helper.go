@@ -10,28 +10,25 @@ import (
 	"strings"
 )
 
-// proxyAddr instance of proxy for query API
-var proxyAddr *url.URL
+// client instance of request for query API
+var client *http.Client
 
 // SetProxyAddr set proxyAddr
 func SetProxyAddr(prot, addr string, port uint) {
-	var err error
-	proxyAddr, err = url.Parse(fmt.Sprintf("%s://%s:%d", prot, addr, port))
+	proxyAddr, err := url.Parse(fmt.Sprintf("%s://%s:%d", prot, addr, port))
 	if err != nil {
 		log.Errorf("set proxy error %v", err.Error())
+	}
+	client = &http.Client{
+		Transport: &http.Transport{
+			Proxy: http.ProxyURL(proxyAddr),
+		},
 	}
 }
 
 // QueryAPI 请求 API [GET]
 func QueryAPI(urlAddr string, params map[string]interface{}) ([]byte, error) {
 	request, _ := http.NewRequest("GET", urlAddr+"?"+paramsFormator(params), nil)
-	proxy := proxyAddr //url.Parse("http://127.0.0.1:6152")
-	client := &http.Client{
-		Transport: &http.Transport{
-			Proxy: http.ProxyURL(proxy),
-		},
-		//Timeout: time.Second,
-	}
 	resp, err := client.Do(request)
 	if err != nil {
 		return nil, errors.New("timeout")
