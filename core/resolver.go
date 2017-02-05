@@ -13,6 +13,14 @@ func Resolver(m *dns.Msg, r *dns.Msg, clientIP string) {
 	}
 
 	statistics.Resolve()
+	// Host
+	host, ok := hostsCache[r.Question[0].Name]
+	if ok {
+		statistics.Hit()
+		m.Answer = []dns.RR{host}
+		return
+	}
+
 	// 从缓存中获取
 	dnsCache, err := getDNSCache(r.Question, clientIP)
 	if err == nil { // 有缓存

@@ -56,6 +56,7 @@ func setupCache(c *ProtonConfig) {
 func setupService(c *ProtonConfig) {
 
 	setPublicIP()
+	refreshHost()
 
 	dns.HandleFunc(".", protonHandle)
 	tcpAddr := fmt.Sprintf("%s:%d", c.TCP.Addr, c.TCP.Port)
