@@ -13,7 +13,6 @@ func Resolver(m *dns.Msg, r *dns.Msg, clientIP string) {
 	}
 
 	statistics.Resolve()
-
 	// 从缓存中获取
 	dnsCache, err := getDNSCache(r.Question, clientIP)
 	if err == nil { // 有缓存
@@ -27,7 +26,7 @@ func Resolver(m *dns.Msg, r *dns.Msg, clientIP string) {
 
 	response, err := gdns.NewGoogleDNSRequest().ResolveName(r.Question[0].Name).ResolveType(r.Question[0].Qtype).ClientSubnet(clientIP).Query()
 	if err != nil {
-		log.Errorf("google dns request error %v", err.Error())
+		log.Errorf("Google DNS API request error %v", err.Error())
 		return
 	}
 
