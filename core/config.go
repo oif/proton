@@ -10,6 +10,7 @@ type ProtonConfig struct {
 	UDP   UDPConfig   `toml:"udp"`   // UDP 配置
 	Proxy ProxyConfig `toml:"proxy"` // 代理配置
 	Cache CacheConfig `toml:"cache"` // 缓存配置
+	Host  HostConfig  `toml:"hosts"` // Hosts 配置
 }
 
 // BasicConfig with addr and port
@@ -37,6 +38,12 @@ type ProxyConfig struct {
 // CacheConfig for resolve result cache
 type CacheConfig struct {
 	Size int // 缓存大小
+}
+
+// HostConfig for configure hosts
+type HostConfig struct {
+	Enable bool
+	Addr   string
 }
 
 // GetProtonConfig 解析 toml 配置

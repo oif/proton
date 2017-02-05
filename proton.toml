@@ -13,3 +13,7 @@ port = 6152
 
 [cache]
 size = 10240
+
+[hosts]
+enable = true
+addr = "https://coding.net/u/scaffrey/p/hosts/git/raw/master/hosts"

@@ -26,3 +26,5 @@ var servicePublicIP string
 var statistics *ProtonStat // 统计数据
 // cache instance of cache service
 var cache *freecache.Cache // 解析缓存
+
+var serviceConfig *ProtonConfig
