@@ -75,6 +75,16 @@ func (a *Answer) GetAnswer() dns.RR {
 			Hdr: a.GetRRHeader(),
 			Ns:  a.Data,
 		}
+	case dns.TypeMX:
+		return &dns.MX{
+			Hdr: a.GetRRHeader(),
+			Mx:  a.Data,
+		}
+	case dns.TypePTR:
+		return &dns.PTR{
+			Hdr: a.GetRRHeader(),
+			Ptr: a.Data,
+		}
 	default:
 		return &dns.TXT{
 			Hdr: dns.RR_Header{
