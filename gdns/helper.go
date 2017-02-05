@@ -1,7 +1,6 @@
 package gdns
 
 import (
-	"errors"
 	"fmt"
 	log "github.com/Sirupsen/logrus"
 	"io/ioutil"
@@ -31,7 +30,7 @@ func QueryAPI(urlAddr string, params map[string]interface{}) ([]byte, error) {
 	request, _ := http.NewRequest("GET", urlAddr+"?"+paramsFormator(params), nil)
 	resp, err := client.Do(request)
 	if err != nil {
-		return nil, errors.New("timeout")
+		return nil, err
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
