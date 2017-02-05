@@ -54,6 +54,22 @@ func getDNSCache(q []dns.Question, ip string) (*dns.Msg, error) {
 		return temp, err
 	}
 
+	// 更新 TTL
+	realTTL, err := cache.TTL([]byte(key))
+	if err != nil {
+		return temp, err
+	}
+
+	for i := 0; i < len(temp.Answer); i++ {
+		temp.Answer[i].Header().Ttl = realTTL
+	}
+	for i := 0; i < len(temp.Extra); i++ {
+		temp.Extra[i].Header().Ttl = realTTL
+	}
+	for i := 0; i < len(temp.Ns); i++ {
+		temp.Ns[i].Header().Ttl = realTTL
+	}
+
 	// 转换成功
 	return temp, nil
 }
