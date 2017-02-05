@@ -17,6 +17,8 @@ import (
 // Setup main setup func
 func Setup(c *ProtonConfig) {
 
+	serviceConfig = c
+
 	fmt.Print(ProtonLOGO)
 
 	setupLog(c)
@@ -56,7 +58,9 @@ func setupCache(c *ProtonConfig) {
 func setupService(c *ProtonConfig) {
 
 	setPublicIP()
-	refreshHost()
+	if c.Host.Enable {
+		refreshHost(c.Host.Addr)
+	}
 
 	dns.HandleFunc(".", protonHandle)
 	tcpAddr := fmt.Sprintf("%s:%d", c.TCP.Addr, c.TCP.Port)

@@ -11,8 +11,11 @@ import (
 
 var hostsCache map[string]*dns.A
 
-func readHosts() string {
-	resp, err := http.Get("https://raw.githubusercontent.com/racaljk/hosts/master/hosts")
+func readHosts(addr string) string {
+	if addr == "" {
+		addr = "https://raw.githubusercontent.com/racaljk/hosts/master/hosts"
+	}
+	resp, err := http.Get(addr)
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -44,16 +47,15 @@ func loadHostToCache(h []string) {
 					},
 					A: net.ParseIP(temp[0]),
 				}
-
 			}
 		}
 	}
 }
 
-func refreshHost() {
+func refreshHost(hostFileAddr string) {
 	hostsCache = make(map[string]*dns.A)
 
-	rawHost := readHosts()
+	rawHost := readHosts(hostFileAddr)
 	hosts := strings.Split(rawHost, "\n")
 	loadHostToCache(hosts)
 }
