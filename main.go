@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/oif/proton/core"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"proton/core"
 )
 
 func main() {

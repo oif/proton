@@ -1,11 +1,11 @@
+go_import_path: github.com/oif/proton
+
 language: go
 sudo: false
 go:
   - 1.6
   - 1.7
   - master
-
-go_import_path: github.com/oif/proton
 
 script:
   - go test -v ./...

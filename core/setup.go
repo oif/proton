@@ -5,11 +5,11 @@ import (
 	log "github.com/Sirupsen/logrus"
 	"github.com/coocood/freecache"
 	"github.com/miekg/dns"
-	"github.com/oif/proton/gdns"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"os/signal"
+	"proton/gdns"
 	"strings"
 	"syscall"
 )
