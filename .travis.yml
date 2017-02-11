@@ -5,7 +5,7 @@ go:
   - 1.7
   - master
 before_install:
-  - export GOPATH=$GOPATH:$TRAVIS_BUILD_DIR
+  - export GOPATH=$GOPATH:$HOME/gopath/src/github.com/oif
 
 script:
   - go test -v ./...
