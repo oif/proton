@@ -12,7 +12,6 @@
 - [ ] Cache Optimize
 - [ ] Benchmark
 - [ ] White & black list
-- [ ] Statistics
-- [ ] hosts update strategy
-- [ ] multi upstream
-- [ ] modify configure method
+- [ ] More statistics
+- [ ] Hosts update strategy
+- [ ] Multi upstream
