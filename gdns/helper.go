@@ -29,10 +29,13 @@ func SetProxyAddr(prot, addr string, port uint) {
 func QueryAPI(urlAddr string, params map[string]interface{}) ([]byte, error) {
 	request, _ := http.NewRequest("GET", urlAddr+"?"+paramsFormator(params), nil)
 	resp, err := client.Do(request)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 	return body, err
 }

@@ -9,9 +9,12 @@
 * Hosts support
 
 ## TODO
-- [ ] Cache Optimize
+- [ ] Cache strategy optimize
 - [ ] Benchmark
-- [ ] White & black list
+- [ ] Util test
+- [ ] DNS white & black list
 - [ ] More statistics
-- [ ] Hosts update strategy
 - [ ] Multi upstream
+- [ ] Singnal support [reload|stop]
+- [ ] Configuare
+
