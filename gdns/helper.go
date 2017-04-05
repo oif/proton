@@ -4,13 +4,27 @@ import (
 	"fmt"
 	log "github.com/Sirupsen/logrus"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 // client instance of request for query API
-var client *http.Client
+var client = &http.Client{
+	Timeout: 5 * time.Second,
+	Transport: &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		Dial: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ResponseHeaderTimeout: 10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+	},
+}
 
 // SetProxyAddr set proxyAddr
 func SetProxyAddr(prot, addr string, port uint) {
@@ -18,10 +32,15 @@ func SetProxyAddr(prot, addr string, port uint) {
 	if err != nil {
 		log.Errorf("set proxy error %v", err.Error())
 	}
-	client = &http.Client{
-		Transport: &http.Transport{
-			Proxy: http.ProxyURL(proxyAddr),
-		},
+	client.Transport = &http.Transport{
+		Proxy: http.ProxyURL(proxyAddr),
+		Dial: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ResponseHeaderTimeout: 10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
 	}
 }
 
